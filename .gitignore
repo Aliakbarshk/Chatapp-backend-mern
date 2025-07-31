@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Optional npm cache directory
+.npm
+
+# Build files
+dist/
+build/
+
+# VS Code settings
+.vscode/
+
+# dotenv example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# coverage reports
+coverage/
+
+# Others
+*.tgz

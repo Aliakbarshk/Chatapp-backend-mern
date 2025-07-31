@@ -27,10 +27,11 @@ export const signup = async (req, res) => {
         password:hashedPassword
     })
 
+    if(newUser){
 
-
-
-
+    }else{
+        res.status(400).json({message: "Failed to create user/invalid user data" })
+    }
 
 
 
