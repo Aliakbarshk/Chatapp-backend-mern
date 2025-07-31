@@ -1,59 +1,48 @@
-import User from "../models/users.model";
-import bcrypt from 'bcryptjs';
-
+import { generateToken } from "../Lib/utils.js";
+import User from "../models/users.model.js";
+import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
-    const { username, email, password } = req.body;
-   try{
-    if(password < 6) {
-        return res.status(400).json({ msg: "Password must be at least 6 characters" });
+  const { fullName, email, password } = req.body;
+
+  try {
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json({ msg: "Password must be at least 6 characters" });
     }
-   
-   
-   //same User detection
-    const user = await User.findOne({email}) //FINDONE FIND THE SIMILAR ONES
 
-    if(user) return res.status(400) .json({ msg: "User already exists" });
-     
-    
+    const user = await User.findOne({ email });
+    if (user) return res.status(400).json({ msg: "User already exists" });
 
-    //password hashing
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
-        fullName,
-        email,
-        password:hashedPassword
-    })
+      fullName,
+      email,
+      password: hashedPassword,
+    });
 
-    if(newUser){
+    await newUser.save();
 
-    }else{
-        res.status(400).json({message: "Failed to create user/invalid user data" })
-    }
+    generateToken(newUser, newUser._id, res);
 
-
-
-
-
-
-
-   }
-   catch(error){
-
-   }
+    res.status(201).json({
+      _id: newUser._id,
+      fullName: newUser.fullName,
+      email: newUser.email,
+      profilePic: newUser.profilePic,
+    });
+  } catch (error) {
+    res.status(500).json({ msg: "Server error", error: error.message });
+  }
 };
 
-function hashedpasswordd(){
-    const password = req.body.password ;
-  
-}
-
 export const login = (req, res) => {
-    res.send("Login route");
+  res.send("Login route");
 };
 
 export const logout = (req, res) => {
-    res.send("Logout route");
+  res.send("Logout route");
 };

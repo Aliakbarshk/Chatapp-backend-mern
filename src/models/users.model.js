@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const user = new mongoose.schema({
-    email : {
+    email: {
         type : String,
         required : true,
         unique : true
@@ -18,7 +18,7 @@ const user = new mongoose.schema({
         },
     profilePic:{
         type:String,
-        default: "" ;
+        default: "" 
         
     }
 
