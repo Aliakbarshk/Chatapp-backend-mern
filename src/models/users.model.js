@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const user = new schema({
+const user = new mongoose.schema({
     email : {
         type : String,
         required : true,
@@ -23,3 +23,6 @@ const user = new schema({
     }
 
 })
+
+
+const User = mongoose.model("User", userSchema);
