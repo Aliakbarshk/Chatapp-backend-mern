@@ -3,7 +3,7 @@ import User from "../models/users.model.js";
 import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const {fullName, email, password} = req.body;
 
   try {
     if (password.length < 6) {
@@ -25,6 +25,7 @@ export const signup = async (req, res) => {
     });
 
     await newUser.save();
+
 
     generateToken(newUser, newUser._id, res);
 
