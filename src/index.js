@@ -11,6 +11,9 @@ app.use("/api/auth", authRoutes);
 app.use(express.json())
 
 
+let port  = process.env.PORT
+
+
 try{
   mongoose.connect(process.env.MONGODB_URI)
   console.log("Connected to MongoDB")
@@ -21,8 +24,8 @@ catch(error){
 
 
 
-app.listen(80 || 3000, () => {
-  console.log("Server is running on port 5001 == http://localhost:80");
+app.listen(port, () => {
+  console.log(`Server is running on port 5001 == http://localhost:${port}`);
   connectDB();
 });
 
