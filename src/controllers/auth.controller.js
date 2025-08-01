@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
   const {fullName, email, password} = req.body;
-
+  res.send('Signup route')
   try {
     if (password.length < 6) {
       return res

@@ -2,6 +2,7 @@ import express from "express";
 import authRoutes from "./routes/auth.route.js";
 import {connectDB} from "./Lib/db.js";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 const app = express();
 
 
@@ -11,21 +12,24 @@ app.use("/api/auth", authRoutes);
 app.use(express.json())
 
 
-let port  = process.env.PORT
+dotenv.config();
+let port = 3000
 
 
-try{
-  mongoose.connect(process.env.MONGODB_URI)
-  console.log("Connected to MongoDB")
+try {
+  await mongoose.connect(process.env.MONGODB_URI);
+  console.log("Connected to MongoDB");
+} catch (error) {
+  console.error("Database connection failed:", error);
 }
-catch(error){
-  console.log("Oh No database has a problem")
-}
 
+
+console.log(port)
 
 
 app.listen(port, () => {
-  console.log(`Server is running on port 5001 == http://localhost:${port}`);
+  console.log(`Server is running on port ${port} == http://localhost:${port}`);
+
   connectDB();
 });
 
