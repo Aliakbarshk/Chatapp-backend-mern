@@ -2,6 +2,7 @@ import { generateToken } from "../Lib/utils.js";
 import User from "../models/users.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import cloudinary from "../Lib/cloudinary.js";
 
 
 
@@ -94,4 +95,17 @@ export const logout = (req, res) => {
   }
 };
 
-export const updateProfile = async (req, res) => {}
+export const updateProfile = async (req, res) => {
+  try{
+    const {profilePic} = req.body;
+    const userId = req.user._id;
+    if(!profilepic){
+      return res.status(400).json({message: "Please provide a profile picture" })
+    }
+    const uploadResponse = await cloudinary.uploader.upload(profilePic)
+    const updatedUser = await User.findByIdAndUpdate(userId, {profilePic:uploadResponse.secure_url},{new:true})
+  }
+  catch(error){
+
+  }
+}

@@ -3,10 +3,11 @@ import authRoutes from "./routes/auth.route.js";
 import {connectDB} from "./Lib/db.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
-
+app.use(cookieParser())
 import cors from "cors";
 app.use(cors());
 
