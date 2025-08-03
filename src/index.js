@@ -1,5 +1,6 @@
 import express from "express";
 import authRoutes from "./routes/auth.route.js";
+import authRoutes from "./routes/auth.route.js";
 import {connectDB} from "./Lib/db.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -13,6 +14,7 @@ app.use(cors());
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes);
 
 
 
